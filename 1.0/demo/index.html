@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>PrizeDraw的demo</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="http://g.tbcdn.cn/kissy/k/1.3.0/css/dpl/base-min.css">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<!--<body>-->
+<!--<h2>PrizeDraw的demo</h2>-->
+
+<!--<script>-->
+    <!--var S = KISSY;-->
+    <!--if (S.Config.debug) {-->
+        <!--var srcPath = "../../";-->
+        <!--S.config({-->
+            <!--packages:[-->
+                <!--{-->
+                    <!--name:"gallery/prize-draw",-->
+                    <!--path:srcPath,-->
+                    <!--charset:"utf-8",-->
+                    <!--ignorePackageNameInUri:true-->
+                <!--}-->
+            <!--]-->
+        <!--});-->
+    <!--}-->
+
+    <!--S.use('gallery/prize-draw/1.0/index', function (S, PrizeDraw) {-->
+          <!--new PrizeDraw();-->
+    <!--})-->
+<!--</script>-->
+<!--</body>-->
+<body>
+<h2 class="banner">PrizeDraw的demo</h2>
+<div id="J_configCont" class="configCont">
+
+    <div>请输入参与者名单（以逗号','分隔）</div>
+    <textarea id="J_candidateInput"></textarea>
+
+    <div>请输入奖品（以逗号','分隔）</div>
+    <textarea id="J_prizeInput"></textarea>
+
+    <div class="opr"><button id="J_config" class="btn">配置完成</button></div>
+
+</div>
+
+<div  id="J_showDraw">
+
+    <div class="clearfloat wrapper">
+        <div class="userInfo" id="J_candidate">
+
+        </div>
+
+        <div class="prizeInfo">
+
+            <div id="J_prize">
+            </div>
+
+            <div id="J_result"></div>
+        </div>
+    </div>
+    <div class="opr">
+        <button class="btn" id="J_start">开始</button>
+        <button class="btn" id="J_end">结束</button>
+        <button class="btn" id="J_reset">重置</button>
+    </div>
+</div>
+
+<script>
+    var S = KISSY;
+    var srcPath = "../../";
+    S.config({
+        debug: true,
+        packages:[
+            {
+                name:"gallery/prize-draw",
+                path: srcPath,
+                charset:"utf-8",
+                ignorePackageNameInUri:true
+            }
+        ]
+    });
+    S.use('gallery/prize-draw/1.0/index', function (S, PrizeDraw) {
+        new PrizeDraw(
+                {
+                    configCont:'#J_configCont',//配置容器
+                    showDrawCont:'#J_showDraw',//抽奖容器
+                    peopleSetCont:'#J_candidateInput',//输入参与者容器
+                    prizeSetCont:'#J_prizeInput',//输入奖品容器
+                    peopleNumSetCont:'#J_peopleNum',//设置单次中奖人数
+                    configBtn:'#J_config',//设置button
+                    peopleCont:'#J_candidate',//参与者容器
+                    prizeCont:'#J_prize',//奖品容器
+                    resultCont:'#J_result',//获奖结果容器
+                    startBtn:'#J_start',//抽奖开始button
+                    endBtn:'#J_end',//抽奖结束button
+                    resetBtn:'#J_reset',//重置按钮
+                    timeInterval:400//轮换时间间隔，单位是毫秒
+                }
+        );
+    })
+</script>
+</body>
+</html>

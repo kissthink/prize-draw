@@ -1,0 +1,17 @@
+{
+    "name": "prize-draw",
+    "comName":"PrizeDraw",
+    "version": "1.0",
+    "desc": "",
+    "tag":"抽奖",
+    "githubName":"iBanBan",
+    "author": {
+        "name": "辰惬",
+        "email": "chenqie.zc@alibaba-inc.com",
+        "page": ""
+    },
+	"flexComboPort":"8081",
+	"reserveServerPort":"8080",
+    "type": "kissy-gallery",
+    "type-url": "http://gallery.kissyui.com/guide"
+}
