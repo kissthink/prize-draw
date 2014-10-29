@@ -2,9 +2,9 @@
 
 PrizeDraw是一个简单抽奖工具，用户通过配置参与者和奖品进行抽奖。
 
-* 版本：2.0.2
+* 版本：2.0.3
 * 作者：辰惬
-* demo：[http://kg.kissyui.com/prize-draw/2.0.2/demo/index.html](http://kg.kissyui.com/prize-draw/2.0.2/demo/index.html)
+* demo：[http://kg.kissyui.com/prize-draw/2.0.3/demo/index.html](http://gallery.kissyui.com/prize-draw/2.0.3/demo/index.html)
 
 ## 初始化组件
 		
