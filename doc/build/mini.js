@@ -69,7 +69,7 @@ KISSY.add(function (S, Node, Base) {
             this.endBtn = $(this.get('endBtn'));
             this.people = [];
             this.prize = [];
-            this.timeInterval = $(this.get('timeInterval'));
+            this.timeInterval = $(this.get('timeInterval'))[0];
             this.resetBtn=$(this.get('resetBtn'));
             this.configCont=$(this.get('configCont'));
             this.showDrawCont=$(this.get('showDrawCont'));
@@ -81,7 +81,7 @@ KISSY.add(function (S, Node, Base) {
             this.showDrawCont.hide();
             var styleStr='<style type="text/css">';
             var choosedCss='.choosed{-webkit-animation: blink 2s ease 0 infinite;}';
-            var blinkCss='@-webkit-keyframes blink { 0% {background: #00a651;} 25% {background: #00aeef;} 50% {background: #ffdc7b;} 2.0.0% {background: #00a651;}}';
+            var blinkCss='@-webkit-keyframes blink { 0% {background: #00a651;} 25% {background: #00aeef;} 50% {background: #ffdc7b;} 100% {background: #00a651;}}';
             styleStr+=choosedCss;
             styleStr+=blinkCss;
             styleStr+='</style>';
@@ -119,6 +119,12 @@ KISSY.add(function (S, Node, Base) {
             }else {
                 peoStr=peoStr.replace(/，/g,',');
                 this.people = peoStr.split(',');
+                for(var k=0;k<this.people.length;k++){
+                    if(S.trim(this.people[k])=='') {
+                        this.people.splice(k,1);
+                        k--;
+                    }
+                }
             }
             peoArr.push('<ul id="J_userList">');
             for (var i = 0, len = this.people.length; i < len; i++) {
@@ -136,6 +142,12 @@ KISSY.add(function (S, Node, Base) {
             }else {
                 prizeStr=prizeStr.replace(/，/g,',');
                 this.prize = prizeStr.split(',');
+                for(var k=0;k<this.prize.length;k++){
+                    if(S.trim(this.prize[k])==''){
+                        this.prize.splice(k,1);
+                        k--;
+                    }
+                }
             }
             prizeArr.push('<ul id="J_prizeList">');
             for (var i = 0, len = this.prize.length; i < len; i++) {
@@ -143,6 +155,7 @@ KISSY.add(function (S, Node, Base) {
             }
             prizeArr.push('</ul>');
             this.prizeCont && this.prizeCont.html(prizeArr.join(''));
+            this.prizeCont.one('input')&&this.prizeCont.one('input').attr('checked',true);
         },
 
         change: function (arr) {
@@ -163,7 +176,7 @@ KISSY.add(function (S, Node, Base) {
         startDraw: function () {
             var people = this.people,
                 change = this.change;
-            var luckyArr=localStorage.getItem('luckyArr');
+            var luckyArr=JSON.parse(localStorage.getItem('luckyArr'));
             if(luckyArr){
                 for(var k= 0;k<luckyArr.length;k++){
                     for (var i = 0, len = people.length; i < len; i++) {
@@ -175,18 +188,23 @@ KISSY.add(function (S, Node, Base) {
             }
 
             clearInterval(timer);
-            timer = setInterval(function () {
-                change(people)
-            }, this.timeInterval);
+            if(people.length) {
+                timer = setInterval(function () {
+                    change(people)
+                }, this.timeInterval);
+            }
 
         },
 
         endDraw: function () {
             clearInterval(timer);
             var luckyone=localStorage.getItem('luckyOne');
+            if(luckyone=='null') return;
             luckyArr.push(luckyone);
-            localStorage.setItem('luckyArr',luckyArr);
+            //localStorage.setItem('luckyArr',luckyArr);
+            localStorage.setItem('luckyArr',JSON.stringify(luckyArr));
             this.showResult();
+            localStorage.setItem('luckyOne',null);
         },
 
         showResult:function(){
